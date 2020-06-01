@@ -1,0 +1,12 @@
+# [START gae_python37_cloudsql_config]
+runtime: python37
+
+env_variables:
+  CLOUD_SQL_USERNAME: mastergk
+  CLOUD_SQL_PASSWORD: test1234
+  CLOUD_SQL_DATABASE_NAME: demo
+  CLOUD_SQL_CONNECTION_NAME: youtube-demo-255723:us-central1:utubedemo
+# [END gae_python37_cloudsql_config]
+
+vpc_access_connector:
+  name: "projects/youtube-demo-255723/locations/us-central1/connectors/connect-to-sql"
