@@ -1,6 +1,6 @@
 Made changes from the main file available at https://github.com/GoogleCloudPlatform/python-docs-samples
 
-#Commands used in my App Engine tutorial:
+# Commands used in my App Engine tutorial:
 
 1. gcloud sql connect [instance_name] --user=mastergk
 
