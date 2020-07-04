@@ -1,0 +1,59 @@
+---
+    # compute-video-demo-ansible
+    - name: Create Compute Engine instances
+      hosts: localhost
+      gather_facts: no
+      vars:
+        gcp_project: youtube-demo-255723
+        gcp_cred_kind: serviceaccount
+        gcp_cred_file: ansible-svc.json
+        zone: "us-central1-a"
+        region: "us-central1"
+        machine_type: "n1-standard-1"
+        image: "projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts"
+    
+      tasks:
+        - name: Create an IP address for instance
+          gcp_compute_address:
+            name: "{{ zone }}-ip"
+            region: "{{ region }}"
+            project: "{{ gcp_project }}"
+            service_account_file: "{{ gcp_cred_file }}"
+            auth_kind: "{{ gcp_cred_kind }}"
+          register: gce_ip
+        - name: Bring up the instance in the zone.
+          gcp_compute_instance:
+            name: "{{ zone }}"
+            machine_type: "{{ machine_type }}"
+            disks:
+              - auto_delete: true
+                boot: true
+                initialize_params:
+                  source_image: "{{ image }}"
+            network_interfaces:
+              - access_configs:
+                  - name: External NAT
+                    nat_ip: "{{ gce_ip }}"
+                    type: ONE_TO_ONE_NAT
+            tags:
+              items:
+                - http-server
+                - https-server
+            zone: "{{ zone }}"
+            project: "{{ gcp_project }}"
+            service_account_file: "{{ gcp_cred_file }}"
+            auth_kind: "{{ gcp_cred_kind }}"
+          register: gce
+       
+      post_tasks:
+        - name: Wait for SSH for instance
+          wait_for: delay=5 sleep=5 host={{ gce_ip.address }} port=22 state=started timeout=100
+        - name: Save host data for first zone
+          add_host: hostname={{ gce_ip.address }} groupname=gce_instances_ips
+
+    - name: Deploy Apache and custom html page
+      hosts: gce_instances_ips
+      become: yes
+      become_method: sudo
+      roles:
+        - simple-web
