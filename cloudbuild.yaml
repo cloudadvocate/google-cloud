@@ -3,7 +3,7 @@ steps:
   args:
   - functions
   - deploy
-  - sample-function
+  - hello_world
   - --source=.
   - --trigger-http
   - --runtime=python37
