@@ -6,3 +6,5 @@ steps:
   - sample-function
   - --source=.
   - --trigger-http
+  - --runtime python37
+  - --allow-unauthenticated
