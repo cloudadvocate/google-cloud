@@ -1,3 +1,6 @@
+name: Get secrets from secret manager
+on: 
+  workflow_dispatch
 jobs:
   job_id:
     # ...
