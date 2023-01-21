@@ -2,8 +2,7 @@ name: Get secrets from secret manager
 on: 
   workflow_dispatch
 jobs:
-  job_id:
-    get-secret:
+  get-secret:
     runs-on: ubuntu-latest
     # Add "id-token" with the intended permissions.
     permissions:
