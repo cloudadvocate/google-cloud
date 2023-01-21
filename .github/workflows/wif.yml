@@ -3,8 +3,8 @@ on:
   workflow_dispatch
 jobs:
   job_id:
-    # ...
-
+    get-secret:
+    runs-on: ubuntu-latest
     # Add "id-token" with the intended permissions.
     permissions:
       contents: 'read'
