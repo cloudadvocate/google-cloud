@@ -1,0 +1,29 @@
+name: provision infrastructure - destroy
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  infra-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0.4.0'
+      with:
+        token_format: 'access_token'
+        workload_identity_provider: 'projects/540422861159/locations/global/workloadIdentityPools/devops-pool/providers/github-provider'
+        service_account: 'sa-devops-course@youtube-demo-255723.iam.gserviceaccount.com'
+    
+    - uses: hashicorp/setup-terraform@v3
+
+    - name: terraform init
+      run: cd gcp/sample && ./plan.sh
+    
+    - name: terraform plan
+      run: cd gcp/sample && ./destroy.sh
+
+
