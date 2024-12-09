@@ -1,0 +1,28 @@
+name: provision infrastructure v1 on creation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+jobs:
+  infra-build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v2'
+      with:
+        project_id: 'youtube-demo-255723'
+        workload_identity_provider: 'projects/540422861159/locations/global/workloadIdentityPools/devops-pool/providers/github-direct-provider'
+    
+    - uses: hashicorp/setup-terraform@v3
+
+    - name: terraform init
+      run: cd gcp/sample && ./plan.sh
+    
+    - name: terraform plan
+      run: cd gcp/sample && ./apply.sh
+
+
