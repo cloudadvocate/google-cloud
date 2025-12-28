@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "mcp-server-kubernetes": {
+      "command": "wsl",
+      "args": ["/usr/bin/node", "/home/gkrishna25/mcp/mcp-server-kubernetes/dist/index.js"]
+    },
+    "google-compute": {
+      "command": "wsl",
+      "args": [
+        "bash",
+        "-lc",
+        "source /mnt/c/Users/GK-PC/gcloud-mcp-env.sh && source ~/.nvm/nvm.sh && nvm use 24 >/dev/null && npx -y @google-cloud/gcloud-mcp@latest"
+      ],
+      "env": {
+        "GOOGLE_CLOUD_PROJECT": "GCP-PROJECT",
+        "CLOUDSDK_CORE_PROJECT": "GCP-PROJECT",
+        "GOOGLE_APPLICATION_CREDENTIALS": "PATH-OF-SVC-ACCOUNT/SAMPLE.json",
+        "CLOUDSDK_CONFIG": "/home/gkrishna25/.config/gcloud-mcp",
+        "CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE": "PATH-OF-SVC-ACCOUNT/SAMPLE.json",
+        "PATH": "/usr/bin:/bin"
+      }
+    }
+  }
+}
