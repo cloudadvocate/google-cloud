@@ -1,0 +1,12 @@
+"google-compute": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@google-cloud/gcloud-mcp@latest"
+            ],
+            "env": {
+                "GOOGLE_CLOUD_PROJECT": "GCP-PROJECT",
+                "GOOGLE_APPLICATION_CREDENTIALS": "SERVICE-ACCOUNT-PATH.json",
+                "PATH": "/Users/gk/google-cloud-sdk/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+            }
+        }
