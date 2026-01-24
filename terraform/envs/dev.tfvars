@@ -1,2 +1,2 @@
-project_id = "youtube-demo-255723"
+project_id = "cts-thanuja-471613"
 vpc_name = "demo-vpc"
