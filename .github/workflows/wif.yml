@@ -18,8 +18,8 @@ jobs:
       uses: 'google-github-actions/auth@v1'
       with:
         token_format: 'access_token'
-        workload_identity_provider: 'PUT-YOUR-PROVIDER'
-        service_account: 'YOUR-SERVICE-ACCOUNT'
+        workload_identity_provider: 'github'
+        service_account: 'serviceaccount@cts-thanuja-471613.iam.gserviceaccount.com'
 
     # Install gcloud, `setup-gcloud` automatically picks up authentication from `auth`.
     - name: 'Set up Cloud SDK'
